@@ -1,13 +1,10 @@
 Description: >
-    Udagram Servers / UdagramProject IAC
-
+    Udagram Servers / UdagramProject IAC. This deploys servers.
 
 Parameters:
-
     EnvironmentName:
         Description: An environment name that will be prefixed to resource names
         Type: String
-
 Resources:
   ProfileWithRolesForOurApp:
     Type: AWS::IAM::InstanceProfile
@@ -55,6 +52,7 @@ Resources:
   WebAppLaunchConfig:
     Type: AWS::AutoScaling::LaunchConfiguration
     Properties:
+      IamInstanceProfile: !Ref ProfileWithRolesForOurApp
       UserData:
         Fn::Base64: !Sub |
           #!/bin/bash
@@ -66,7 +64,7 @@ Resources:
           aws s3 cp s3://udacity-demo-1/udacity.zip .
           unzip -o udacity.zip
           
-      ImageId: ami-005bdb005fb00e791
+      ImageId: ami-003634241a8fcdec0
       SecurityGroups:
       - Ref: WebServerSecGroup
       InstanceType: t3.medium
@@ -130,3 +128,12 @@ Resources:
       VpcId: 
         Fn::ImportValue:
           Fn::Sub: "${EnvironmentName}-VPCID"
+
+Outputs:
+  WebAppLDNSName:
+    Description: The DNSName of the Load balancer
+    Value: !Sub
+      - http://${Domain}
+      - { Domain: !GetAtt WebAppLB.DNSName }
+    Export:
+      Name: !Sub ${EnvironmentName}-LB-DNS
