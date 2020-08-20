@@ -15,12 +15,12 @@
 - name: Create EC2 instances
   ec2:
     instance_type: t2.nano
-    image: ami-0a634ae95e11c6f91
+    image: ami-0e342d72b12109f91
     user_data: "{{ USERDATA }}"
     region: us-west-2
     group_id:
       - sg-013e1c1f7211e0ed2
-      - sg-038a1a1e1a29bb055
+      - sg-0782f0c976b400320
     wait: yes
     instance_tags:
       Name: web_server
