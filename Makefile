@@ -10,6 +10,7 @@ setup:
 
 install:
 	# This should be run from inside a virtualenv
+	docker pull hadolint/hadolint
 	pip install --upgrade pip &&\
 		pip install -r requirements.txt
 
