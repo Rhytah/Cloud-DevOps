@@ -1,4 +1,5 @@
-<include a CircleCI status badge, here>
+[![Rhytah](https://circleci.com/gh/Rhytah/Cloud-DevOps/tree/microservices.svg?style=svg)](https://app.circleci.com/pipelines/github/Rhytah/Cloud-DevOps?branch=microservices)
+
 
 ## Project Overview
 
